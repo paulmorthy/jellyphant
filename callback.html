@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Jellyphant – přihlášení</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  textarea { width:100%; min-height:110px; font:14px/1.4 ui-monospace, Menlo, monospace; padding:12px; border-radius:12px; border:1px solid var(--line); background:var(--card); color:var(--fg); }
+  button { margin-top:12px; padding:12px 18px; border-radius:12px; border:0; background:var(--accent); color:#fff; font-size:1rem; cursor:pointer; }
+</style>
+</head>
+<body>
+<main>
+  <p class="logo">🐘 Jellyphant uploader</p>
+  <h1 id="h">Přihlášení proběhlo</h1>
+  <p id="msg">Zkopíruj celou adresu níže a vlož ji do Terminálu, kde čeká skript (pak Enter).<br>
+  <span class="small">Copy the whole address below and paste it into the Terminal window where the uploader is waiting.</span></p>
+  <textarea id="url" readonly></textarea>
+  <button id="copy" type="button">Zkopírovat / Copy</button>
+  <p class="small">Tato stránka nic neodesílá ani neukládá. / This page does not send or store anything.</p>
+</main>
+<script>
+  var box = document.getElementById('url');
+  box.value = location.href;
+  if (!/[?&#](code|error)=/.test(location.href)) {
+    document.getElementById('h').textContent = 'Jellyphant uploader';
+    document.getElementById('msg').textContent = 'Tahle stránka slouží jen jako návrat po přihlášení. / Login return page.';
+  }
+  document.getElementById('copy').onclick = function () {
+    box.select();
+    try { navigator.clipboard.writeText(box.value); } catch (e) { document.execCommand('copy'); }
+    this.textContent = 'Zkopírováno ✓';
+  };
+</script>
+</body>
+</html>
